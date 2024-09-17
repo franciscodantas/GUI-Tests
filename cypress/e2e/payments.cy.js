@@ -145,7 +145,7 @@ describe('payments', () => {
     cy.get('body').should('contain', 'Order has been successfully updated.');
   });
 
-  it.only("Clicando em next", () => {
+  it("Clicando em next", () => {
     // Movendo para a página de pagamentos do administrador.
     cy.clickInFirst('a[href="/admin/payments/"]');
 
