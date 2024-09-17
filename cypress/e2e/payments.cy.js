@@ -160,7 +160,7 @@ describe('payments', () => {
     // Checando se o corpo da notificação contém a mensagem esperada.   
     cy.get('*[class^="ui yellow labeled icon  button"]').click();
 
-    // Checando se o corpo da notificação contém a mensagem esperada. 
+    // Clicando no botão de confirmar.
     cy.get('*[class^="ui green ok inverted button"]').click();
 
     // Checando se o corpo da notificação contém a mensagem esperada.   
@@ -219,12 +219,16 @@ describe('payments', () => {
   });
 
   it("Quando filtramos todos estados como novos", () => {
+    // Movendo para a página de pagamentos do administrador.
     cy.clickInFirst('a[href="/admin/payments/"]');
 
+    // Selecionando novos pedidos dos usuários. 
     cy.get('.ui > .sylius-filters > .sylius-filters__field > .field > #criteria_state').select('New');
+
+    // Clicando no botão de filtar. 
     cy.get('*[class^="ui blue labeled icon button"]').click();
 
-
+    // Verificando se a coluna state da tabela contém "New". 
     cy.get('tbody > tr').each(($tr) => {
       cy.wrap($tr)
         .find('span.ui.olive.label') 
@@ -236,11 +240,16 @@ describe('payments', () => {
   });
 
   it("Quando filtramos todos estados como completos", () => {
+    // Movendo para a página de pagamentos do administrador.
     cy.clickInFirst('a[href="/admin/payments/"]');
 
+    // Selecionando novos pedidos dos usuários. 
     cy.get('.ui > .sylius-filters > .sylius-filters__field > .field > #criteria_state').select('Completed');
+
+    // Clicando no botão de filtar. 
     cy.get('*[class^="ui blue labeled icon button"]').click();
 
+    // Verificando se a coluna state da tabela contém "Completed". 
     cy.get('tbody > tr').each(($tr) => {
       cy.wrap($tr)
         .find('span.ui.green.label') 
@@ -251,11 +260,16 @@ describe('payments', () => {
   });
 
   it("Quando filtramos todos canais em Fashion Web Store", () => {
+    // Movendo para a página de pagamentos do administrador.
     cy.clickInFirst('a[href="/admin/payments/"]');
 
+    // Selecionando channel para Fashion Web Store dos usuários. 
     cy.get('.ui > .sylius-filters > .sylius-filters__field > .field > #criteria_channel').select('Fashion Web Store');
+    
+    // Clicando no botão de filtar. 
     cy.get('*[class^="ui blue labeled icon button"]').click();
 
+    // Verificando se a coluna channel da tabela contém "Fashion Web Store". 
     cy.get('tbody > tr').each(($tr) => {
       cy.wrap($tr)
         .find('span.channel__item') 
