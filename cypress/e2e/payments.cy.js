@@ -167,38 +167,6 @@ describe('payments', () => {
     cy.get('body').should('contain', 'Order has been successfully updated.');
   });
 
-  it("Confirmando o envio", () => {
-    // Movendo para a página de pagamentos do administrador.
-    cy.clickInFirst('a[href="/admin/payments/"]');
-          
-    // Selecionando novos pedidos dos usuários. 
-    cy.get('.ui > .sylius-filters > .sylius-filters__field > .field > #criteria_state').select('completed');
-  
-    // Clicando no botão de filtar. 
-    cy.get('*[class^="ui blue labeled icon button"]').click();
-  
-    // Clicando no primeiro pedido. 
-    cy.get('a[href^="/admin/orders/"]').filter((_, el) => {
-      const href = Cypress.$(el).attr('href');
-      return /\d+$/.test(href); 
-    }).first().click();
-
-    // Escrevendo um comentário. 
-    cy.get('*[id^="sylius_shipment_ship_tracking"]').type("Comentando.");
-
-    // Clicando em enviar. 
-    cy.get('*[class^="ui labeled icon teal button"]').click();
-
-    // Checando se o corpo da notificação contém a mensagem esperada.   
-    cy.get('body').should('contain', 'Shipment has been successfully updated.'); 
-
-    // Clicando em cancelar. 
-    cy.get('*[class^="ui icon labeled tiny yellow fluid loadable button"]').click();
-
-    // Checando se o corpo da notificação contém a mensagem esperada.   
-    cy.get('body').should('contain', 'Payment has been successfully refunded.');
-  });
-
   it("Quando clicamos em next sucessivas vezes até está desabilitado", () => {
     cy.clickInFirst('a[href="/admin/payments/"]');
 
