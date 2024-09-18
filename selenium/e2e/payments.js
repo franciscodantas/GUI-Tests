@@ -1,6 +1,7 @@
 const { Builder, By, until } = require('selenium-webdriver');
 const assert = require('assert');
 
+// Esses testes estão um pouco estaveis as vezes quebra sem motivo aparente
 describe('payments', () => {
   let driver;
 
@@ -16,7 +17,7 @@ describe('payments', () => {
     driver.manage().deleteAllCookies();
     await driver.get('http://localhost:9990/en_US/products/knitted-wool-blend-green-cap');
     await driver.findElement(By.className('ui huge primary icon labeled button')).click();
-    await driver.sleep(300);
+    await driver.sleep(500);
     await driver.findElement(By.className('ui huge primary fluid labeled icon button')).click();
 
     await driver.findElement(By.id('sylius_checkout_address_customer_email')).sendKeys("user@gmail.com");
