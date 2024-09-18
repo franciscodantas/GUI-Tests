@@ -192,6 +192,20 @@ describe('payments', () => {
     assert.strictEqual(rows.length, 25, `O número de itens na tabela é ${rows.length}. Esperado: 25.`);
   });
 
+  it("Quando checamos se o filtro de quantidade em 50 mostra no máximo 50 itens na tabela", async () => {
+    await driver.findElement(By.linkText('Payments')).click();
+    await driver.sleep(500);
+  
+    await driver.findElement(By.className('ui simple fluid dropdown item')).click();
+    await driver.findElement(By.css('a[href="/admin/payments/?limit=50"]')).click();
+  
+    await driver.wait(until.elementLocated(By.css('tbody')), 10000);
+  
+    const rows = await driver.findElements(By.css('tbody tr'));
+  
+    assert(rows.length <= 50, `O número de itens na tabela é ${rows.length}. Esperado: no máximo 50.`);
+  });
+
   it("Quando filtramos todos estados como novos", async () => {
     await driver.findElement(By.linkText('Payments')).click();
     await driver.sleep(500);

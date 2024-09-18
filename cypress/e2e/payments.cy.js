@@ -145,26 +145,20 @@ describe('payments', () => {
     cy.get('body').should('contain', 'Order has been successfully updated.');
   });
 
-  it("Clicando em next", () => {
+  it("Quando checamos se o filtro de quantidade em 50 mostra mais de 25 itens na tabela", () => {
     // Movendo para a página de pagamentos do administrador.
     cy.clickInFirst('a[href="/admin/payments/"]');
 
+    // Clicando no fuiltro de quantidade mostradas. 
+    cy.get('*[class^="ui simple fluid dropdown item"]').click();
 
-    // Clicando no primeiro pedido. 
-    cy.get('a[href^="/admin/orders/"]').filter((_, el) => {
-      const href = Cypress.$(el).attr('href');
-      return /\d+$/.test(href); 
-    }).first().click();
+    // Escolhendo quantidade igual a 25. 
+    cy.clickInFirst('a[href="/admin/payments/?limit=50"]');
 
-    
-    // Checando se o corpo da notificação contém a mensagem esperada.   
-    cy.get('*[class^="ui yellow labeled icon  button"]').click();
-
-    // Clicando no botão de confirmar.
-    cy.get('*[class^="ui green ok inverted button"]').click();
-
-    // Checando se o corpo da notificação contém a mensagem esperada.   
-    cy.get('body').should('contain', 'Order has been successfully updated.');
+    // Checando se o tamanho da table tem mais que 25 linhas. 
+    cy.get('tbody').children().its('length').then((length) => {
+      expect(length).to.be.greaterThan(25);
+    });  
   });
 
   it("Quando clicamos em next sucessivas vezes até está desabilitado", () => {
